@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        fontFamily: 'Montserrat',
+
         textTheme: TextTheme(
           headline1: const TextStyle(
               fontSize: 36.0, fontWeight: FontWeight.w500, fontFamily: 'Hind'),
@@ -45,7 +45,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
   final String title;
-  var todos = [
+  final todos = [
     {"code_point": 0xe878, "progress": 60.0, "color": Colors.green},
     {"code_point": 0xe7fd, "progress": 40.0, "color": Colors.blue},
     {"code_point": 0xe854, "progress": 90.0, "color": Colors.orange},
@@ -110,14 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 22.0, bottom: 8.0),
-            padding: EdgeInsets.only(left: 52.0),
+            margin: EdgeInsets.only(top: 36.0, left: 56.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ShadowImage(),
                 Container(
-                  margin: EdgeInsets.only(top: 22.0, bottom: 8.0),
+                  margin: EdgeInsets.only(top: 22.0, bottom: 12.0),
                   child: Text(
                     "Hello Phong",
                     style: Theme.of(context)
@@ -133,7 +132,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       .bodyLarge
                       ?.copyWith(color: Colors.white.withOpacity(0.7)),
                 ),
+                Container(
+                  height: 4.0,
+                ),
                 Text('You have 3 tasks to do today'),
+                Container(
+                  margin: EdgeInsets.only(top: 52.0),
+                  child: Text(
+                    'Today: June 16 2022',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Colors.white.withOpacity(0.8)),
+                  ),
+                ),
               ],
             ),
           ),
@@ -218,7 +230,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: 'New Todo',
+        backgroundColor: Colors.white,
+        foregroundColor: color,
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
