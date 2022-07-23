@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text('You have 3 tasks to do today'),
                 Container(
-                  margin: EdgeInsets.only(top: 52.0),
+                  margin: EdgeInsets.only(top: 42.0),
                   child: Text(
                     'Today: June 16 2022',
                     style: Theme.of(context)
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             flex:
-                6, //trọng lượng của flex giúp phân bổ bố cục https://openplanning.net/13117/flutter-expanded
+                1, //trọng lượng của flex giúp phân bổ bố cục https://openplanning.net/13117/flutter-expanded
             child: NotificationListener<ScrollNotification>(
               onNotification: (notifacation) {
                 if (notifacation is ScrollEndNotification) {
@@ -178,17 +178,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     elevation:
                         4.0, //độ mờ bên dưới https://api.flutter.dev/flutter/material/Material/elevation.html
                     margin:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                     //vertical - chiều dọc.
                     //  horizontal - ngang
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 26.0, horizontal: 16.0),
+                          vertical: 16.0, horizontal: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Container(
+                            padding: EdgeInsets.all(8.0),
+                            margin: EdgeInsets.only(
+                              bottom: 6.0,
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.grey.shade100,
+                              ),
+                            ),
                             //Icon trên đầu trang
                             child: Icon(
                               IconData(
@@ -199,7 +209,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   as MaterialColor, //color in icon
                             ),
                           ),
-                          Spacer(),
+                          Spacer(
+                            flex: 8,
+                          ),
                           Container(
                             child: Text(
                               'Work',
@@ -209,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ?.copyWith(color: Colors.grey[500]),
                             ),
                           ),
+                          Spacer(),
                           TaskProgressIndicator(
                             color:
                                 widget.todos[index]["color"] as MaterialColor,
@@ -223,8 +236,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Spacer(
-            flex: 1,
+          Container(
+            margin: EdgeInsets.only(bottom: 68.0),
           )
         ],
       ),
