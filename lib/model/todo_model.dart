@@ -1,16 +1,32 @@
-import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:todo/utils/uuid.dart';
 
+part 'todo_model.g.dart';
+
+@JsonSerializable()
 class Todo {
-  int id;
-  String text;
-  bool isCompleted;
+  final String id, parent;
+  final String name;
+  final int isCompleted;
 
-  Todo({required this.id, required this.text, required this.isCompleted});
-  Todo copy({String? text, bool? isCompleted, int? id}) {
+  Todo(this.name, {required this.parent, this.isCompleted = 0, String? id})
+      : this.id = id ?? Uuid().generateV4();
+  Todo copy({String? name, int? isCompleted, String? id, String? parent}) {
     return Todo(
-      id: id ?? this.id,
-      text: text ?? this.text,
+      name ?? this.name,
       isCompleted: isCompleted ?? this.isCompleted,
+      id: id ?? this.id,
+      parent: parent ?? this.parent,
     );
   }
+
+  ///A necsessary factory constructor for creating a new User instance
+  ///from a map. Pass the map to the generated `_$TodoFromJson()` constructor.
+  /// The constructor is named after the source class, in this case User.
+  factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
+
+  /// `toJson` is the convention for a class to declare support for serialization
+  /// to JSON. The implementation simply calls the private, generated
+  /// helper method `_$TodoFromJson`.
+  Map<String, dynamic> toJson() => _$TodoToJson(this);
 }
