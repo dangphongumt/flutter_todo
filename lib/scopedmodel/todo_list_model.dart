@@ -16,7 +16,7 @@ class TodoListModel extends Model {
   List<Todo> get todos => _todos.toList();
   List<Task> get tasks => _tasks.toList();
   bool get isLoading => _isLoading;
-  int getTaskComletionPercent(Task task) =>
+  int getTaskCompletionPercent(Task task) =>
       _taskComletionPercentage[task.id] ?? 0;
   int getTotalTodosFrom(Task task) =>
       todos.where((it) => it.parent == task.id).length;
@@ -35,7 +35,9 @@ class TodoListModel extends Model {
   }
 
   void loadTodos() async {
-    var isNew = !await DBProvider.db.dbExists();
+    //buoc1
+    var isNew =
+        !await DBProvider.db.dbExists(); //nếu DB tồn tại -> isnew = false
     if (isNew) {
       await _db.insertBulkTask(_db.tasks);
       await _db.insertBulkTodo(_db.todos);
@@ -52,6 +54,20 @@ class TodoListModel extends Model {
     _isLoading = false;
     await Future.delayed(Duration(milliseconds: 300));
 ///////////////////////////////////
+    notifyListeners();
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    super.removeListener(listener);
+    print("remove listner called");
+    // DBProvider.db.closeDB();
+  }
+
+  void addTask(Task task) {
+    _tasks.add(task);
+    _calcTaskCompletionPercent(task.id);
+    _db.insertTask(task);
     notifyListeners();
   }
 

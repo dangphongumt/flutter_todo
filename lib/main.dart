@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:todo/model/data/choice_card.dart';
 import 'package:todo/model/hero_id_model.dart';
 import 'package:todo/model/task_model.dart';
-import 'package:todo/model/todo_list_model.dart';
+import 'package:todo/scopedmodel/todo_list_model.dart';
 import 'package:todo/page/detail_screen.dart';
 import 'package:todo/page/privacy_policy.dart';
 import 'package:todo/route/scale_route.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           subtitle1: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w500),
         ),
       ),
-      home: MyHomePage(title: ''),
+      home: MyHomePage(title: 'ABc'),
     );
 
     return ScopedModel<TodoListModel>(
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  final GlobalKey _globalKey = GlobalKey(debugLabel: 'Backdrop');
+  final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
   late PageController _pageController;
   int _currentPageIndex = 0;
   // int _currentPageIndex = 0;
@@ -180,193 +180,322 @@ class _MyHomePageState extends State<MyHomePage>
               ),
             ],
           ),
-          // body: Column(
-          //   // Column is also a layout widget. It takes a list of children and
-          //   // arranges them vertically. By default, it sizes itself to fit its
-          //   // children horizontally, and tries to be as tall as its parent.
-          //   //
-          //   // Invoke "debug painting" (press "p" in the console, choose the
-          //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          //   // to see the wireframe for each widget.
-          //   //
-          //   // Column has various properties to control how it sizes itself and
-          //   // how it positions its children. Here we use mainAxisAlignment to
-          //   // center the children vertically; the main axis here is the vertical
-          //   // axis because Columns are vertical (the cross axis would be
-          //   // horizontal).
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: <Widget>[
-          //     Container(
-          //       margin: EdgeInsets.only(top: 36.0, left: 56.0),
-          //       child: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         children: <Widget>[
-          //           ShadowImage(),
-          //           Container(
-          //             margin: EdgeInsets.only(top: 22.0, bottom: 12.0),
-          //             child: Text(
-          //               "Hello Phong",
-          //               style: Theme.of(context)
-          //                   .textTheme
-          //                   .headline1
-          //                   ?.copyWith(color: Colors.white),
-          //             ),
-          //           ),
-          //           Text(
-          //             'Looks like feel good.',
-          //             style: Theme.of(context)
-          //                 .textTheme
-          //                 .bodyLarge
-          //                 ?.copyWith(color: Colors.white.withOpacity(0.7)),
-          //           ),
-          //           Container(
-          //             height: 4.0,
-          //           ),
-          //           Text('You have 3 tasks to do today'),
-          //           Container(
-          //             margin: EdgeInsets.only(top: 42.0),
-          //             child: Text(
-          //               'Today: June 16 2022',
-          //               style: Theme.of(context)
-          //                   .textTheme
-          //                   .subtitle1!
-          //                   .copyWith(color: Colors.white.withOpacity(0.8)),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     Expanded(
-          //       flex:
-          //           1, //trọng lượng của flex giúp phân bổ bố cục https://openplanning.net/13117/flutter-expanded
-          //       child: NotificationListener<ScrollNotification>(
-          //         onNotification: (notifacation) {
-          //           if (notifacation is ScrollEndNotification) {
-          //             var currentPage = _pageController.page;
-          //             print("ScroolNotification = ${_pageController.page}");
-          //             print("_counter = ${_counter}");
-          //             setState(() {
-          //               int indexPage = currentPage!.toInt();
-          //               Object? materialColor =
-          //                   widget.todos[indexPage]["color"];
-          //               color = materialColor
-          //                   as MaterialColor; //https://www.youtube.com/watch?v=x-5gF6IfLws
-          //             });
-          //             return true;
-          //           }
-          //           return false;
-          //         },
-          //         child: PageView.builder(
-          //           controller: _pageController,
-          //           itemBuilder: (BuildContext context, int index) {
-          //             var heroIds = widget._generateHeroIds(index);
-          //             return GestureDetector(
-          //               onTap: _onHandleTap,
-          //               child: Card(
-          //                 shape: RoundedRectangleBorder(
-          //                   borderRadius: BorderRadius.circular(16.0),
-          //                 ),
-          //                 elevation:
-          //                     4.0, //độ mờ bên dưới https://api.flutter.dev/flutter/material/Material/elevation.html
-          //                 margin: EdgeInsets.symmetric(
-          //                     vertical: 16.0, horizontal: 8.0),
-          //                 //vertical - chiều dọc.
-          //                 //  horizontal - ngang
-          //                 child: Padding(
-          //                   padding: EdgeInsets.symmetric(
-          //                       vertical: 16.0, horizontal: 16.0),
-          //                   child: Column(
-          //                     crossAxisAlignment: CrossAxisAlignment.start,
-          //                     mainAxisAlignment: MainAxisAlignment.end,
-          //                     children: [
-          //                       Hero(
-          //                         tag: heroIds.codePointId,
-          //                         child: Container(
-          //                           padding: EdgeInsets.all(8.0),
-          //                           margin: EdgeInsets.only(
-          //                             bottom: 6.0,
-          //                           ),
-          //                           decoration: BoxDecoration(
-          //                             shape: BoxShape.circle,
-          //                             border: Border.all(
-          //                               color: Colors.grey.shade100,
-          //                             ),
-          //                           ),
-          //                           //Icon trên đầu trang
-          //                           child: Icon(
-          //                             IconData(
-          //                               widget.todos[index]["code_point"]
-          //                                   as int,
-          //                               fontFamily: 'MaterialIcons',
-          //                             ),
-          //                             color: widget.todos[index]["color"]
-          //                                 as MaterialColor, //color in icon
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       Spacer(
-          //                         flex: 8,
-          //                       ),
-          //                       Container(
-          //                         margin: EdgeInsets.only(bottom: 4.0),
-          //                         child: Hero(
-          //                           tag: heroIds.remainingTaskId,
-          //                           child: Text(
-          //                             "12 Tasks",
-          //                             style: Theme.of(context)
-          //                                 .textTheme
-          //                                 .bodyLarge
-          //                                 ?.copyWith(color: Colors.grey[500]),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       Container(
-          //                         child: Hero(
-          //                           tag: heroIds.remainingTaskId,
-          //                           child: Text(
-          //                             'Work',
-          //                             style: Theme.of(context)
-          //                                 .textTheme
-          //                                 .titleSmall
-          //                                 ?.copyWith(color: Colors.grey[500]),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       Spacer(),
-          //                       Hero(
-          //                         tag: heroIds.processId,
-          //                         child: TaskProgressIndicator(
-          //                           color: widget.todos[index]["color"]
-          //                               as MaterialColor,
-          //                           progress: widget.todos[index]["progress"],
-          //                         ),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //               ),
-          //             );
-          //           },
-          //           itemCount:
-          //               widget.todos.length, //properties cua PageView ?????
-          //         ),
-          //       ),
-          //     ),
-          //     Container(
-          //       margin: EdgeInsets.only(bottom: 68.0),
-          //     )
-          //   ],
-          // ),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: _incrementCounter,
-          //   tooltip: 'New Todo',
-          //   backgroundColor: Colors.white,
-          //   foregroundColor: color,
-          //   child: const Icon(Icons.add),
-          // ), // This trailing comma makes auto-formatting nicer for build methods.
+          body: _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.0,
+                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                )
+              : FadeTransition(
+                  opacity: _animation,
+                  child: Column(
+                    // Column is also a layout widget. It takes a list of children and
+                    // arranges them vertically. By default, it sizes itself to fit its
+                    // children horizontally, and tries to be as tall as its parent.
+                    //
+                    // Invoke "debug painting" (press "p" in the console, choose the
+                    // "Toggle Debug Paint" action from the Flutter Inspector in Android
+                    // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+                    // to see the wireframe for each widget.
+                    //
+                    // Column has various properties to control how it sizes itself and
+                    // how it positions its children. Here we use mainAxisAlignment to
+                    // center the children vertically; the main axis here is the vertical
+                    // axis because Columns are vertical (the cross axis would be
+                    // horizontal).
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 36.0, left: 56.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            // ShadowImage(),
+                            Container(
+                              // margin: EdgeInsets.only(top: 22.0, bottom: 12.0),
+                              child: Text(
+                                // "Hello Phong",
+                                '${widget.currentDay(context)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              // 'Looks like feel good.',
+                              '${DateTimeUtils.currentDate} ${DateTimeUtils.currentMonth}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                      color: Colors.white.withOpacity(0.7)),
+                            ),
+                            Container(
+                              height: 16.0,
+                            ),
+                            // Text('You have 3 tasks to do today'),
+                            Text(
+                              'You have ${_todos.where((element) => element.isCompleted == 0).length} tasks to do complete',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(
+                                      color: Colors.white.withOpacity(0.7)),
+                            ),
+                            Container(
+                              height: 16.0,
+                            )
+                            // Container(
+                            //   margin: EdgeInsets.only(top: 42.0),
+                            //   child: Text(
+                            //     'Today: June 16 2022',
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .subtitle1!
+                            //         .copyWith(
+                            //             color: Colors.white.withOpacity(0.8)),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        key: _backdropKey,
+                        flex:
+                            1, //trọng lượng của flex giúp phân bổ bố cục https://openplanning.net/13117/flutter-expanded
+                        child: NotificationListener<ScrollNotification>(
+                          onNotification: (notifacation) {
+                            if (notifacation is ScrollEndNotification) {
+                              print(
+                                  "ScroolNotification = ${_pageController.page}");
+                              var currentPage =
+                                  _pageController.page?.round().toInt() ?? 0;
+                              if (_currentPageIndex != currentPage) {
+                                setState(() => _currentPageIndex = currentPage);
+                              }
+
+                              // print("_counter = ${_counter}");
+                              // setState(() {
+                              //   int indexPage = currentPage!.toInt();
+                              //   Object? materialColor =
+                              //       widget.todos[indexPage]["color"];
+                              //   color = materialColor
+                              //       as MaterialColor; //https://www.youtube.com/watch?v=x-5gF6IfLws
+                              // });
+                              // return true;
+                            }
+                            return true;
+                            // return false;
+                          },
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index == _tasks.length) {
+                                return AddPageCard(
+                                  color: Colors.blueGrey,
+                                );
+                              } else {
+                                return TaskCard(
+                                  backdropKey: _backdropKey,
+                                  color: ColorUtils.getColorFrom(
+                                      id: _tasks[index].color),
+                                  getHeroIds: widget._generateHeroIds,
+                                  getTaskCompletionPercent:
+                                      model.getTaskCompletionPercent,
+                                  getTotalTodos: model.getTotalTodosFrom,
+                                  task: _tasks[index],
+                                );
+                              }
+                              // var heroIds = widget._generateHeroIds(index);
+                              // return GestureDetector(
+                              //   onTap: _onHandleTap,
+                              //   child: Card(
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(16.0),
+                              //     ),
+                              //     elevation:
+                              //         4.0, //độ mờ bên dưới https://api.flutter.dev/flutter/material/Material/elevation.html
+                              //     margin: EdgeInsets.symmetric(
+                              //         vertical: 16.0, horizontal: 8.0),
+                              //     //vertical - chiều dọc.
+                              //     //  horizontal - ngang
+                              //     child: Padding(
+                              //       padding: EdgeInsets.symmetric(
+                              //           vertical: 16.0, horizontal: 16.0),
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.start,
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         children: [
+                              //           Hero(
+                              //             tag: heroIds.codePointId,
+                              //             child: Container(
+                              //               padding: EdgeInsets.all(8.0),
+                              //               margin: EdgeInsets.only(
+                              //                 bottom: 6.0,
+                              //               ),
+                              //               decoration: BoxDecoration(
+                              //                 shape: BoxShape.circle,
+                              //                 border: Border.all(
+                              //                   color: Colors.grey.shade100,
+                              //                 ),
+                              //               ),
+                              //               //Icon trên đầu trang
+                              //               child: Icon(
+                              //                 IconData(
+                              //                   widget.todos[index]
+                              //                       ["code_point"] as int,
+                              //                   fontFamily: 'MaterialIcons',
+                              //                 ),
+                              //                 color: widget.todos[index]
+                              //                         ["color"]
+                              //                     as MaterialColor, //color in icon
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           Spacer(
+                              //             flex: 8,
+                              //           ),
+                              //           Container(
+                              //             margin: EdgeInsets.only(bottom: 4.0),
+                              //             child: Hero(
+                              //               tag: heroIds.remainingTaskId,
+                              //               child: Text(
+                              //                 "12 Tasks",
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .bodyLarge
+                              //                     ?.copyWith(
+                              //                         color: Colors.grey[500]),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           Container(
+                              //             child: Hero(
+                              //               tag: heroIds.remainingTaskId,
+                              //               child: Text(
+                              //                 'Work',
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .titleSmall
+                              //                     ?.copyWith(
+                              //                         color: Colors.grey[500]),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           Spacer(),
+                              //           Hero(
+                              //             tag: heroIds.processId,
+                              //             child: TaskProgressIndicator(
+                              //               color: widget.todos[index]["color"]
+                              //                   as MaterialColor,
+                              //               progress: widget.todos[index]
+                              //                   ["progress"],
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
+                            },
+                            // itemCount: widget
+                            //     .todos.length, //properties cua PageView ?????
+                            itemCount: _tasks.length + 1,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 68.0),
+                      )
+                    ],
+                  ),
+                ),
+
+          floatingActionButton: FloatingActionButton(
+            onPressed: (() {
+              print("Pressed button: ${_isLoading}");
+            }),
+            tooltip: 'New Todo',
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.blue,
+            child: const Icon(Icons.add),
+          ), // This trailing comma makes auto-formatting nicer for build methods.
         ),
       );
     });
+  }
+}
+
+class AddPageCard extends StatelessWidget {
+  final Color color;
+
+  const AddPageCard({Key? key, this.color = Colors.black}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Text("ABC"),
+    );
+  }
+}
+
+typedef TaskGetter<T, V> = V Function(T value);
+
+class TaskCard extends StatelessWidget {
+  final GlobalKey backdropKey;
+  final Task task;
+  final Color color;
+
+  final TaskGetter<Task, int> getTotalTodos;
+  final TaskGetter<Task, HeroId> getHeroIds;
+  final TaskGetter<Task, int> getTaskCompletionPercent;
+
+  TaskCard({
+    required this.backdropKey,
+    required this.color,
+    required this.task,
+    required this.getTotalTodos,
+    required this.getHeroIds,
+    required this.getTaskCompletionPercent,
+  });
+
+  // const TaskCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var heroIds = getHeroIds(task);
+    return GestureDetector(
+      onTap: () {
+        final RenderBox? renderBox =
+            backdropKey.currentContext?.findRenderObject() as RenderBox;
+        var backDropHeight = renderBox?.size.height ?? 0;
+        var bottomOffset = 60.0;
+        var horizontalOffset = 52.0;
+        var topOffset = MediaQuery.of(context).size.height - backDropHeight;
+
+        var rect = RelativeRect.fromLTRB(
+            horizontalOffset, topOffset, horizontalOffset, bottomOffset);
+        Navigator.push(
+          context,
+          ScaleRoute(
+            rect: rect,
+            widget: DetailScreen(
+              taskId: task.id,
+              heroIds: heroIds,
+            ),
+          ),
+          // MaterialPageRoute(
+          //   builder: (context) => DetailScreen(
+          //         taskId: task.id,
+          //         heroIds: heroIds,
+          //       ),
+          // ),
+        );
+      },
+      child: Text("Child of GestureDetector in TaskCard"),
+    );
   }
 }

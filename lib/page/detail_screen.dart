@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:todo/model/hero_id_model.dart';
-import 'package:todo/model/todo_list_model.dart';
+import 'package:todo/scopedmodel/todo_list_model.dart';
 
 class DetailScreen extends StatefulWidget {
-  final double progress;
-  final Color color;
-  final int codePoint;
-  final int id;
+  // final double progress;
+  // final Color color;
+  // final int codePoint;
+  // final int id;
+  // final HeroId heroIds;
+
+  final String taskId;
   final HeroId heroIds;
 
-  const DetailScreen(
-      {required this.codePoint,
-      required this.color,
-      required this.progress,
-      required this.id,
-      required this.heroIds});
+  // const DetailScreen(
+  //     {required this.codePoint,
+  //     required this.color,
+  //     required this.progress,
+  //     required this.id,
+  //     required this.heroIds});
+
+  DetailScreen({required this.taskId, required this.heroIds});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -45,7 +50,7 @@ class _DetailScreenState extends State<DetailScreen>
     return ScopedModelDescendant<TodoListModel>(
         builder: (BuildContext context, Widget child, TodoListModel model) {
       return Theme(
-          data: ThemeData(primarySwatch: widget.color as MaterialColor),
+          data: ThemeData(primarySwatch: Colors.blue),
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
